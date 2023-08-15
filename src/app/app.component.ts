@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { freeze } from 'immer';
+import { localFreeze } from './local-freeze';
+
+declare const ngDevMode: boolean;
+
+if (typeof ngDevMode === 'undefined' || ngDevMode) {
+  console.log('=== dev mode ===');
+  freeze({});
+  localFreeze({});
+}
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: '<p>Test</p>',
 })
-export class AppComponent {
-  title = 'ng-dev-mode-external-libs';
-}
+export class AppComponent {}
